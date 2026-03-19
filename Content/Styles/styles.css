@@ -1,0 +1,395 @@
+/* CSS Reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    min-height: 100%;
+    overflow: hidden;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* Fonts */
+@font-face {
+    font-family: "GameFont";
+    src:
+        url("../Fonts/GameFont.woff2") format("woff2"),
+        url("../Fonts/GameFont.woff") format("woff"),
+        url("../Fonts/GameFont.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Mobile-first base styles */
+:root {
+    --text-color: #ffffff;
+    --font-main: "GameFont", Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    font-family: var(--font-main);
+    color: var(--text-color);
+    background-color: #000000;
+    background: url("../Images/background.jpg") center / cover no-repeat;
+}
+
+.game-layout {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.hud-bar {
+    position: absolute;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    width: min(90vw, 680px);
+    padding: 8px 10px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.42);
+    backdrop-filter: blur(8px);
+    color: #fffbf2;
+    z-index: 5;
+}
+
+.hud-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 4px 10px;
+}
+
+.hud-panel--center {
+    align-items: center;
+    text-align: center;
+}
+
+.hud-panel--right {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.hud-label {
+    font-size: 0.7rem;
+    opacity: 0.8;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.hud-value {
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.hud-bet-input {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.32);
+    border-radius: 999px;
+    padding: 2px 6px;
+    justify-content: center;
+}
+
+.hud-prefix {
+    font-size: 0.9rem;
+    margin-right: 0;
+    width: 18px;
+    text-align: center;
+}
+.hud-input {
+    width: 70px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: inherit;
+    text-align: right;
+    font-size: 0.9rem;
+}
+
+.hud-select {
+    width: 70px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: inherit;
+    text-align: center;
+    font-size: 0.9rem;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 0;
+}
+
+.hud-input::-webkit-inner-spin-button,
+.hud-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.multiplayer-scene {
+    position: absolute;
+    top: 50%;
+    left: 48.5%;
+    width: min(68vw, 360px);
+    aspect-ratio: 4 / 1;
+    transform: translate(-50%, -210px);
+    z-index: 1;
+    border-radius: 18px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.multiplayer-scene canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.slot-scene {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 98vw;
+    aspect-ratio: 5 / 3.4;
+    transform: translate(-50%, calc(-50% + 6px));
+    z-index: 0;
+}
+
+.slot-scene canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.spin-btn {
+    position: absolute;
+    top: 78%;
+    right: calc(50% - 50px);
+    transform: translateY(-50%);
+    z-index: 3;
+    cursor: pointer;
+    /* ~2x the old button width (84px) */
+    width: 100px;
+    height: auto;
+    user-select: none;
+    pointer-events: auto;
+    transition: transform 120ms ease, filter 120ms ease, opacity 120ms ease;
+}
+
+.spin-btn:hover {
+    transform: translateY(-50%) scale(1.05);
+    filter: brightness(1.08) saturate(1.08);
+}
+
+.spin-btn--spinning {
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.85;
+    transform: translateY(-50%) scale(0.98);
+    /* Dark generic tint while spinning (no green tint) */
+    /* Darken without turning grey (preserve original tint) */
+    filter: brightness(0.6) contrast(1.15) saturate(0.85);
+}
+
+.spin-btn--blocked {
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.55;
+    filter: brightness(0.7) saturate(0.85);
+}
+
+.slot-frame,
+.mult-frame {
+    position: absolute;
+    left: 48.5%;
+    pointer-events: none;
+}
+
+.slot-frame {
+    top: 53%;
+    width: calc(100vw + 110px);
+    max-width: none;
+    transform: translate(-50%, calc(-50% - 12px));
+    z-index: 1;
+}
+
+.mult-frame {
+    top: 46%;
+    width: min(80vw, 700px);
+    transform: translate(-50%, calc(-50% - clamp(136px, 18vw, 236px)));
+    z-index: 2;
+}
+
+.win-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.win-modal-overlay[hidden] {
+    display: none;
+}
+
+.win-modal-content {
+    width: min(92vw, 720px);
+    height: min(82vh, 640px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+.win-modal-pixi-host {
+    width: 100%;
+    height: 420px;
+}
+
+.win-modal-amount {
+    position: absolute;
+    left: 50%;
+    top: calc(50% + 155px);
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    font-size: clamp(1.4rem, 3.2vw, 2.4rem);
+    font-weight: 800;
+    color: #ffffff;
+    text-align: center;
+    text-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
+}
+
+.turbo-btn {
+    position: absolute;
+    top: 74%;
+    right: 33%;
+    transform: translateY(-50%);
+    z-index: 4;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 100px;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+    cursor: pointer;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    transition: transform 120ms ease, background 120ms ease, filter 120ms ease;
+}
+
+.turbo-btn svg {
+    width: 28px;
+    height: 28px;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+}
+
+.turbo-bg {
+    fill: rgba(0, 0, 0, 0);
+    stroke: #38d94f;
+    stroke-width: 1.8;
+}
+
+.turbo-lightning {
+    fill: #38d94f;
+}
+
+.turbo-btn:hover {
+    transform: translateY(-50%) scale(1.08);
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.turbo-btn:active {
+    transform: translateY(-50%) scale(0.98);
+}
+
+.turbo-btn--on {
+    /* Green background when turbo is enabled */
+    background: rgba(56, 217, 79, 0.28);
+    filter: none;
+}
+
+.turbo-btn--on .turbo-lightning {
+    fill: #ffffff;
+}
+
+.turbo-btn--on .turbo-bg {
+    stroke: #ffffff;
+}
+
+.turbo-btn--on:hover {
+    background: rgba(56, 217, 79, 0.35);
+}
+
+@media (min-width: 1024px) {
+    .multiplayer-scene {
+        width: min(48vw, 680px);
+        transform: translate(-48.5%, calc(-50% - 260px));
+    }
+
+    .slot-scene {
+        width: min(50vw, 700px);
+        transform: translate(-52%, calc(-50% + 54px));
+    }
+
+    .spin-btn {
+        top: 50%;
+        right: max(20px, 4vw);
+        /* ~2x the old desktop button width (100px) */
+        width: 200px;
+    }
+
+    .turbo-btn {
+        top: 40%;
+        right: calc(max(20px, 4vw));
+        width: 50px;
+        height: 50px;
+    }
+
+    .turbo-btn svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .slot-frame {
+        width: min(92vw, 900px);
+        transform: translate(-50%, calc(-50% + 40px));
+    }
+
+    .mult-frame {
+        transform: translate(-48%, calc(-50% - 202px));
+    }
+}

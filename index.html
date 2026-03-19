@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./Content/Styles/styles.css">
+</head>
+<body>
+    <main class="game-layout">
+        <div id="multiplayerScene" class="multiplayer-scene" aria-label="Multiplier scene"></div>
+        <div id="slotScene" class="slot-scene" aria-label="Slot machine scene"></div>
+        <img class="slot-frame" src="./Content/Images/slotFrame.png" alt="Slot frame">
+        <img class="mult-frame" src="./Content/Images/multFrame.png" alt="Multiplier frame">
+        <button
+            id="turboButton"
+            class="turbo-btn"
+            type="button"
+            aria-label="Turbo mode"
+            aria-pressed="false"
+        >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <circle class="turbo-bg" cx="12" cy="12" r="11" />
+                <path
+                    class="turbo-lightning"
+                    d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"
+                />
+            </svg>
+        </button>
+        <img
+            id="spinButton"
+            class="spin-btn"
+            src="./Content/Images/spin.png"
+            alt="Spin"
+            role="button"
+            tabindex="0"
+            aria-label="Spin"
+        />
+        <section class="hud-bar" aria-label="Game information">
+            <div class="hud-panel hud-panel--left">
+                <span class="hud-label">Balance</span>
+                <span id="hudBalance" class="hud-value">€20,000.00</span>
+            </div>
+            <div class="hud-panel hud-panel--center">
+                <span class="hud-label">Win</span>
+                <span id="hudMaxWin" class="hud-value">€0.00</span>
+            </div>
+            <div class="hud-panel hud-panel--right">
+                <span class="hud-label">Bet amount</span>
+                <div class="hud-bet-input">
+                    <span class="hud-prefix">€</span>
+                    <select
+                        id="hudBetSelect"
+                        class="hud-select"
+                        aria-label="Bet size in euros"
+                    >
+                        <option value="1">1,00</option>
+                        <option value="2">2,00</option>
+                        <option value="3">3,00</option>
+                        <option value="4">4,00</option>
+                        <option value="5">5,00</option>
+                        <option value="10">10,00</option>
+                        <option value="20">20,00</option>
+                        <option value="50">50,00</option>
+                        <option value="100">100,00</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div
+        id="winModalOverlay"
+        class="win-modal-overlay"
+        hidden
+        aria-label="Win modal"
+        aria-live="polite"
+    >
+        <div class="win-modal-content">
+            <div id="winModalPixiHost" class="win-modal-pixi-host"></div>
+            <div id="winModalAmount" class="win-modal-amount">€0,00</div>
+        </div>
+    </div>
+
+    <script src="./Content/Scripts/Lib/pixi.js"></script>
+    <script src="./Content/Scripts/Lib/pixi-spine.js"></script>
+    <script src="./Content/Scripts/Api/fake.api.js"></script>
+    <script src="./Content/Scripts/gameLogic.js"></script>
+    <script src="./Content/Scripts/multiplayer.js"></script>
+    <script src="./Content/Scripts/spin.js?v=3"></script>
+    <script src="./Content/Scripts/winModal.js"></script>
+</body>
+</html>
